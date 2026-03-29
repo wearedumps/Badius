@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BotTwitch Web Control</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="bg-shape bg-shape-a"></div>
+  <div class="bg-shape bg-shape-b"></div>
+
+  <main class="page">
+    <header class="hero reveal">
+      <h1>BotTwitch Control Studio</h1>
+      <p>Vista prioritaria del directo y chat, con control total del bot desde un panel web inspirado en Twitch.</p>
+      <div class="status-wrap">
+        <span id="status" class="status-pill">Conectando...</span>
+        <button id="btnRefresh" class="btn ghost">Actualizar ahora</button>
+      </div>
+    </header>
+
+    <section class="media-grid reveal delay-1">
+      <article class="card media-card media-main">
+        <h2>Stream</h2>
+        <div class="embed-wrap stream-wrap">
+          <iframe id="streamFrame" title="Twitch Stream" allowfullscreen></iframe>
+        </div>
+      </article>
+
+      <article class="card media-card media-side">
+        <h2>Chat</h2>
+        <div class="embed-wrap chat-wrap">
+          <iframe id="chatFrame" title="Twitch Chat"></iframe>
+        </div>
+        <div class="chat-fallback">
+          <a id="chatPopoutLink" target="_blank" rel="noopener noreferrer" href="#">Abrir chat en ventana aparte</a>
+        </div>
+      </article>
+    </section>
+
+    <section class="grid reveal delay-2">
+      <article class="card control-card">
+        <h2>Control del bot</h2>
+
+        <div class="row split">
+          <label>Prompt activo</label>
+          <div class="slot-group">
+            <button id="slotA" class="btn small">A</button>
+            <button id="slotB" class="btn small">B</button>
+          </div>
+        </div>
+
+        <div class="row split">
+          <label>Whisper en vivo</label>
+          <button id="toggleWhisper" class="btn toggle">Off</button>
+        </div>
+
+        <div class="row split">
+          <label>Responder todo</label>
+          <button id="toggleAutoReply" class="btn toggle">Off</button>
+        </div>
+
+        <div class="row split">
+          <label>Debug web (no envia a Twitch)</label>
+          <button id="toggleDebugWeb" class="btn toggle">Off</button>
+        </div>
+
+        <div class="row">
+          <label for="channelInput">Canal Twitch</label>
+          <div class="inline">
+            <input id="channelInput" type="text" placeholder="nombre_canal" />
+            <button id="btnChannel" class="btn">Aplicar</button>
+          </div>
+        </div>
+
+        <div class="row owner-box">
+          <label for="ownerUserInput">Owner del bot</label>
+          <div class="inline">
+            <input id="ownerUserInput" type="text" placeholder="usuario_owner" />
+            <button id="btnSaveOwner" class="btn">Guardar owner</button>
+          </div>
+          <label for="ownerPrompt">Owner System Prompt</label>
+          <textarea id="ownerPrompt" class="owner-textarea" placeholder="Prompt especial para el owner..."></textarea>
+        </div>
+
+        <div class="row">
+          <label for="freeCommand">Texto libre o comando</label>
+          <div class="inline">
+            <input id="freeCommand" type="text" placeholder="!hola o cualquier texto" />
+            <button id="btnSendFree" class="btn">Enviar</button>
+          </div>
+        </div>
+
+        <div class="row">
+          <label for="iaText">Consulta IA</label>
+          <div class="inline ia-line">
+            <select id="iaMode">
+              <option value="!ia">!ia</option>
+              <option value="!ias">!ias</option>
+              <option value="!responde">!responde</option>
+            </select>
+            <input id="iaText" type="text" placeholder="Escribe aqui tu consulta" />
+            <button id="btnSendIA" class="btn">Enviar IA</button>
+          </div>
+        </div>
+
+        <div class="quick-row">
+          <button class="btn ghost" data-quick="!hola">!hola</button>
+          <button class="btn ghost" data-quick="!ping">!ping</button>
+          <button class="btn ghost" data-quick="!modelo">!modelo</button>
+          <button id="btnRestart" class="btn danger">Reiniciar bot</button>
+        </div>
+      </article>
+
+      <article class="card whispers-card">
+        <h2>Whisper live</h2>
+        <pre id="whisperText" class="terminal"></pre>
+      </article>
+    </section>
+
+    <section class="grid two reveal delay-3">
+      <article class="card prompts-card">
+        <div class="head-inline">
+          <h2>System Prompt A</h2>
+          <button id="btnSaveA" class="btn small">Guardar A</button>
+        </div>
+        <textarea id="promptA" placeholder="Prompt A..."></textarea>
+      </article>
+
+      <article class="card prompts-card">
+        <div class="head-inline">
+          <h2>System Prompt B</h2>
+          <button id="btnSaveB" class="btn small">Guardar B</button>
+        </div>
+        <textarea id="promptB" placeholder="Prompt B..."></textarea>
+      </article>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
